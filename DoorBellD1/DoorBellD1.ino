@@ -8,11 +8,11 @@ Ticker ticker;
 #define MODE 1
 
 #ifndef STASSID
-#define STASSID "xxxxx"
-#define STAPSK  "xxxxxxx"
+#define STASSID "xxxx"
+#define STAPSK  "xxxx"
 #endif
 
-const char* host = "192.168.1.40";
+const char* host = "192.168.1.25";
 unsigned int port = 8080;      
 
 WiFiUDP Udp;
@@ -129,7 +129,7 @@ void SendFrameToHTTP(String reason)
       return;
     }
 
-    String url = "/hello";
+    String url = "/gateway/433/10511";
        
     // Envoi la requete au serveur - This will send the request to the server
     client.print(String("GET ") + url + " HTTP/1.1\r\n" +
@@ -139,7 +139,7 @@ void SendFrameToHTTP(String reason)
     //Si pas de réponse au bout de 5 seconde
     unsigned long timeout = millis();
     while (client.available() == 0) {
-      if (millis() - timeout > 5000) {
+      if (millis() - timeout > 10000) {
         Serial.println(">>> Client Timeout !");
         client.stop();
         return;
